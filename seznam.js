@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function () {
 const filmy = [
 	{
 		id: 'pelisky',
@@ -121,34 +122,30 @@ const filmy = [
 const seznamFilmu = document.querySelector('#seznam-filmu')
 seznamFilmu.innerHTML = ''
 
-filmy.forEach((film) => {
-  const img = document.createElement('img')
-  img.src = film.plakat.url
-  img.width = film.plakat.sirka
-  img.height = film.plakat.vyska
-  img.classList.add('card-img-top')
-  img.alt = 'plakát'
+const seznamFilmuElement = document.getElementById('seznam-filmu')
 
-  const title = document.createElement('h5')
-  title.classList.add('card-title')
-  title.textContent = film.nazev
+filmy.forEach(film => {
+	const filmElement = document.createElement('div')
+	filmElement.classList.add('col')
 
-  const text = document.createElement('p')
-  text.classList.add('card-text')
-  text.textContent = film.ochutnavka
+	filmElement.innerHTML = `
+		<div class="card">
+			<img
+				src="${film.plakat.url}"
+				width="${film.plakat.sirka}"
+				height="${film.plakat.vyska}"
+				class="card-img-top"
+				alt="plakát"
+			/>
+			<div class="card-body">
+				<h5 class="card-title">${film.nazev}</h5>
+				<p class="card-text">${film.ochutnavka}</p>
+				
+				<a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
+			</div>
+		</div>
+	`
 
-  const link = document.createElement('a')
-  link.href = `film.html#${film.id}`
-  link.classList.add('btn', 'btn-primary')
-  link.textContent = 'Přehrát'
-
-  const cardDiv = document.createElement('div')
-  cardDiv.classList.add('card')
-  cardDiv.appendChild(img)
-  cardDiv.appendChild(title)
-  cardDiv.appendChild(text)
-  cardDiv.appendChild(link)
-
-  seznamFilmu.appendChild(cardDiv)
+	seznamFilmuElement.appendChild(filmElement)
 })
-
+})
